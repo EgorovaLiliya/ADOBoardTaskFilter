@@ -1,0 +1,13 @@
+{
+  "name": "ado-board-task-filter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Фильтр канбан-доски Azure DevOps Server по исполнителям: расширение, документация, проверки",
+  "scripts": {
+    "test": "node tests/run.js",
+    "screenshots": "node tests/screenshots.js docs/img"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

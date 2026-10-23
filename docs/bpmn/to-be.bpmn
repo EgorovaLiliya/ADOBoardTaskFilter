@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_tobe" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collab_tobe"><bpmn:participant id="Pool_tobe" name="TO-BE: подготовка к обсуждению работы участника" processRef="Proc_tobe"/></bpmn:collaboration>
+  <bpmn:process id="Proc_tobe" isExecutable="false">
+    <bpmn:laneSet id="LS_tobe">
+      <bpmn:lane id="L_lead" name="Ведущий встречи">
+        <bpmn:flowNodeRef>S1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>E1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="L_ext" name="Расширение ADO Board Task Filter">
+        <bpmn:flowNodeRef>B3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B8</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="L_ado" name="Azure DevOps Server">
+        <bpmn:flowNodeRef>B2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B5</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="S1" name="Нужно обсудить работу участника"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:userTask id="B1" name="Открыть доску команды"><bpmn:incoming>F1</bpmn:incoming><bpmn:outgoing>F2</bpmn:outgoing></bpmn:userTask>
+    <bpmn:serviceTask id="B2" name="Отобразить доску"><bpmn:incoming>F2</bpmn:incoming><bpmn:outgoing>F3</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:serviceTask id="B3" name="Найти карточки на доске"><bpmn:incoming>F3</bpmn:incoming><bpmn:outgoing>F4</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:serviceTask id="B4" name="Запросить карточки, связи и дочерние задачи"><bpmn:incoming>F4</bpmn:incoming><bpmn:outgoing>F5</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:serviceTask id="B5" name="Вернуть данные через REST API"><bpmn:incoming>F5</bpmn:incoming><bpmn:outgoing>F6</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:serviceTask id="B6" name="Сформировать список исполнителей"><bpmn:incoming>F6</bpmn:incoming><bpmn:outgoing>F7</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:userTask id="B7" name="Выбрать участников в панели"><bpmn:incoming>F7</bpmn:incoming><bpmn:outgoing>F8</bpmn:outgoing></bpmn:userTask>
+    <bpmn:serviceTask id="B8" name="Скрыть карточки без участия"><bpmn:incoming>F8</bpmn:incoming><bpmn:outgoing>F9</bpmn:outgoing></bpmn:serviceTask>
+    <bpmn:userTask id="B9" name="Обсудить работу по видимым карточкам"><bpmn:incoming>F9</bpmn:incoming><bpmn:outgoing>F10</bpmn:outgoing></bpmn:userTask>
+    <bpmn:endEvent id="E1" name="Работа участника обсуждена"><bpmn:incoming>F10</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="S1" targetRef="B1"/>
+    <bpmn:sequenceFlow id="F2" sourceRef="B1" targetRef="B2"/>
+    <bpmn:sequenceFlow id="F3" sourceRef="B2" targetRef="B3"/>
+    <bpmn:sequenceFlow id="F4" sourceRef="B3" targetRef="B4"/>
+    <bpmn:sequenceFlow id="F5" sourceRef="B4" targetRef="B5"/>
+    <bpmn:sequenceFlow id="F6" sourceRef="B5" targetRef="B6"/>
+    <bpmn:sequenceFlow id="F7" sourceRef="B6" targetRef="B7"/>
+    <bpmn:sequenceFlow id="F8" sourceRef="B7" targetRef="B8"/>
+    <bpmn:sequenceFlow id="F9" sourceRef="B8" targetRef="B9"/>
+    <bpmn:sequenceFlow id="F10" sourceRef="B9" targetRef="E1"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diag_tobe"><bpmndi:BPMNPlane id="Plane_tobe" bpmnElement="Collab_tobe">
+    <bpmndi:BPMNShape id="Pool_tobe_di" bpmnElement="Pool_tobe" isHorizontal="true"><dc:Bounds x="80" y="80" width="2115" height="520"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="L_lead_di" bpmnElement="L_lead" isHorizontal="true"><dc:Bounds x="110" y="80" width="2085" height="160"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="L_ext_di" bpmnElement="L_ext" isHorizontal="true"><dc:Bounds x="110" y="240" width="2085" height="190"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="L_ado_di" bpmnElement="L_ado" isHorizontal="true"><dc:Bounds x="110" y="430" width="2085" height="170"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="S1_di" bpmnElement="S1"><dc:Bounds x="192.0" y="142.0" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="160.0" y="184.0" width="100" height="40"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B1_di" bpmnElement="B1"><dc:Bounds x="315.0" y="120.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B2_di" bpmnElement="B2"><dc:Bounds x="490.0" y="475.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B3_di" bpmnElement="B3"><dc:Bounds x="665.0" y="295.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B4_di" bpmnElement="B4"><dc:Bounds x="840.0" y="295.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B5_di" bpmnElement="B5"><dc:Bounds x="1015.0" y="475.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B6_di" bpmnElement="B6"><dc:Bounds x="1190.0" y="295.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B7_di" bpmnElement="B7"><dc:Bounds x="1365.0" y="120.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B8_di" bpmnElement="B8"><dc:Bounds x="1540.0" y="295.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="B9_di" bpmnElement="B9"><dc:Bounds x="1715.0" y="120.0" width="140" height="80"/></bpmndi:BPMNShape>
+    <bpmndi:BPMNShape id="E1_di" bpmnElement="E1"><dc:Bounds x="1942.0" y="142.0" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="1910.0" y="184.0" width="100" height="40"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+    <bpmndi:BPMNEdge id="F1_di" bpmnElement="F1"><di:waypoint x="228.0" y="160.0"/><di:waypoint x="315.0" y="160.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F2_di" bpmnElement="F2"><di:waypoint x="455.0" y="160.0"/><di:waypoint x="472.5" y="160.0"/><di:waypoint x="472.5" y="515.0"/><di:waypoint x="490.0" y="515.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F3_di" bpmnElement="F3"><di:waypoint x="630.0" y="515.0"/><di:waypoint x="647.5" y="515.0"/><di:waypoint x="647.5" y="335.0"/><di:waypoint x="665.0" y="335.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F4_di" bpmnElement="F4"><di:waypoint x="805.0" y="335.0"/><di:waypoint x="840.0" y="335.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F5_di" bpmnElement="F5"><di:waypoint x="980.0" y="335.0"/><di:waypoint x="997.5" y="335.0"/><di:waypoint x="997.5" y="515.0"/><di:waypoint x="1015.0" y="515.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F6_di" bpmnElement="F6"><di:waypoint x="1155.0" y="515.0"/><di:waypoint x="1172.5" y="515.0"/><di:waypoint x="1172.5" y="335.0"/><di:waypoint x="1190.0" y="335.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F7_di" bpmnElement="F7"><di:waypoint x="1330.0" y="335.0"/><di:waypoint x="1347.5" y="335.0"/><di:waypoint x="1347.5" y="160.0"/><di:waypoint x="1365.0" y="160.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F8_di" bpmnElement="F8"><di:waypoint x="1505.0" y="160.0"/><di:waypoint x="1522.5" y="160.0"/><di:waypoint x="1522.5" y="335.0"/><di:waypoint x="1540.0" y="335.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F9_di" bpmnElement="F9"><di:waypoint x="1680.0" y="335.0"/><di:waypoint x="1697.5" y="335.0"/><di:waypoint x="1697.5" y="160.0"/><di:waypoint x="1715.0" y="160.0"/></bpmndi:BPMNEdge>
+    <bpmndi:BPMNEdge id="F10_di" bpmnElement="F10"><di:waypoint x="1855.0" y="160.0"/><di:waypoint x="1942.0" y="160.0"/></bpmndi:BPMNEdge>
+  </bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADO Board Task Filter — настройки</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header class="page-head">
+      <img src="../../icons/icon48.png" width="40" height="40" alt="">
+      <div>
+        <h1>ADO Board Task Filter</h1>
+        <p class="lead">Фильтр канбан-доски Azure DevOps Server по исполнителям. Настройки сохраняются сразу и синхронизируются с вашим профилем браузера.</p>
+      </div>
+    </header>
+
+    <section class="card" aria-labelledby="h-servers">
+      <h2 id="h-servers">Серверы Azure DevOps</h2>
+      <p class="hint">Расширение работает только на серверах из этого списка. При добавлении браузер спросит разрешение читать страницы сервера.</p>
+      <form id="server-form" class="row-form" novalidate>
+        <input id="server-input" type="text" inputmode="url" autocomplete="url" placeholder="https://ado.company.ru или ссылка на доску" aria-label="Адрес сервера">
+        <button type="submit" class="btn primary">Добавить</button>
+      </form>
+      <p id="server-error" class="error" role="alert" hidden></p>
+      <ul id="server-list" class="servers" aria-live="polite"></ul>
+    </section>
+
+    <section class="card" aria-labelledby="h-people">
+      <h2 id="h-people">Кого считать участником карточки</h2>
+      <label class="toggle">
+        <input type="checkbox" id="useCardFields">
+        <span class="switch" aria-hidden="true"></span>
+        <span>
+          <span class="label">Людей из полей карточки</span>
+          <span class="hint">Assigned To, «Ответственный» и другие поля с типом Identity</span>
+        </span>
+      </label>
+      <div class="field">
+        <span class="label" id="l-childTypes">Типы дочерних элементов</span>
+        <span class="hint">Исполнители этих элементов тоже участвуют в карточке. Чаще всего это Task.</span>
+        <div class="chips" data-key="childTypes" aria-labelledby="l-childTypes"></div>
+      </div>
+      <div class="field">
+        <span class="label" id="l-doneStates">Завершённые состояния</span>
+        <span class="hint">Дочерние элементы в этих состояниях не учитываются, когда включено «Только незавершённые задачи».</span>
+        <div class="chips" data-key="doneStates" aria-labelledby="l-doneStates"></div>
+      </div>
+      <div class="field">
+        <span class="label" id="l-ignoredFields">Поля, которые не считаются участием</span>
+        <span class="hint">Системные имена полей истории изменений, например System.CreatedBy.</span>
+        <div class="chips" data-key="ignoredFields" aria-labelledby="l-ignoredFields"></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="h-panel">
+      <h2 id="h-panel">Панель на доске</h2>
+      <div class="grid">
+        <div class="field">
+          <span class="label" id="l-side">Расположение</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="l-side" data-key="panelSide">
+            <button type="button" role="radio" data-value="right">Справа</button>
+            <button type="button" role="radio" data-value="left">Слева</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="label" id="l-theme">Тема</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="l-theme" data-key="theme">
+            <button type="button" role="radio" data-value="auto">Как в системе</button>
+            <button type="button" role="radio" data-value="light">Светлая</button>
+            <button type="button" role="radio" data-value="dark">Тёмная</button>
+          </div>
+        </div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="onlyActiveByDefault">
+        <span class="switch" aria-hidden="true"></span>
+        <span><span class="label">Включать «Только незавершённые задачи» при открытии доски</span></span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="rememberSelection">
+        <span class="switch" aria-hidden="true"></span>
+        <span>
+          <span class="label">Запоминать выбранных людей</span>
+          <span class="hint">Для каждой доски отдельно, только в этом браузере</span>
+        </span>
+      </label>
+    </section>
+
+    <section class="card" aria-labelledby="h-data">
+      <h2 id="h-data">Данные</h2>
+      <div class="grid">
+        <label class="field">
+          <span class="label">Автообновление</span>
+          <select id="autoRefreshMinutes">
+            <option value="0">Выключено</option>
+            <option value="1">Каждую минуту</option>
+            <option value="5">Каждые 5 минут</option>
+            <option value="15">Каждые 15 минут</option>
+            <option value="30">Каждые 30 минут</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label">Версия REST API</span>
+          <input id="apiVersion" type="text" spellcheck="false">
+          <span class="hint">6.0 подходит для Azure DevOps Server 2020 и новее</span>
+        </label>
+      </div>
+      <details>
+        <summary>Если расширение не находит карточки</summary>
+        <p class="hint">Укажите CSS-селекторы карточки и её номера для вашей версии доски. Номер расширение ищет сначала по селектору, затем по ссылке на рабочий элемент внутри карточки.</p>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Селектор карточки</span>
+            <input id="cardSelector" type="text" spellcheck="false">
+          </label>
+          <label class="field">
+            <span class="label">Селектор номера внутри карточки</span>
+            <input id="cardIdSelector" type="text" spellcheck="false">
+          </label>
+        </div>
+      </details>
+    </section>
+
+    <footer class="page-foot">
+      <button type="button" id="reset" class="btn ghost">Вернуть настройки по умолчанию</button>
+      <span id="saved" class="saved" role="status" aria-live="polite"></span>
+    </footer>
+  </main>
+  <script src="../shared/settings.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

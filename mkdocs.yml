@@ -1,0 +1,38 @@
+site_name: ADO Board Task Filter
+site_description: Фильтр канбан-доски Azure DevOps Server по исполнителям — документация и аналитика
+docs_dir: docs
+
+theme:
+  name: material
+  language: ru
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Обзор: index.md
+  - Руководство оператора: user-guide.md
+  - Установка и настройка: install.md
+  - Аналитика:
+      - О разделе: analysis/index.md
+      - Требования: analysis/requirements.md
+      - Процессы AS-IS и TO-BE: analysis/processes.md
+      - Архитектура: analysis/architecture.md
+      - Интеграция с REST API: analysis/integration.md
+      - Модель данных: analysis/data-model.md
+      - Поведение панели: analysis/behavior.md
+      - Проверка: analysis/testing.md
